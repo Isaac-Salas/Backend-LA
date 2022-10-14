@@ -79,6 +79,9 @@ router.post('/login', async(req, res) => {
         })
     }
 
+
+
+
     // Creación del Token
     const token = jwt.sign({
         name: user.name,
@@ -88,6 +91,23 @@ router.post('/login', async(req, res) => {
     res.header('auth-token', token).json({
         error: null,
         data: {token}
+    })
+
+
+
+
+    router.post('', async(req, res) => {
+        let {id} = req.body
+        try{
+        await user.findByIdAndDelete(id)
+        res.json ({
+            error:null,
+            message: 'Success'
+        })
+    } catch(error){
+        res.status (400).json(error)
+    }
+    
     })
 
     /*
