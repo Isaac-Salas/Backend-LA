@@ -39,7 +39,7 @@ const authRoutes = require('./routes/auth')
 app.get('/', (req, res) =>{
     res.json({
         estado: true,
-        mensaje: NAME
+        mensaje: 'Sisisisi'
 
 
     })
