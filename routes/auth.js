@@ -15,6 +15,18 @@ const schemaLogin = Joi.object({
     password: Joi.string().min(6).max(1024).required()
 })
 
+router.get('/all', async(req, res)=> {
+    try{
+        const users = await User.find()
+        res.json ({
+            error: null,
+            data: users
+        })
+    }catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 router.post('/register', async(req, res) => {
     // constante para validar los campos
     const { error } = schemaRegister.validate(req.body)
@@ -96,7 +108,7 @@ router.post('/login', async(req, res) => {
 
 
 
-    router.post('', async(req, res) => {
+    router.post('/delete', async(req, res) => {
         let {id} = req.body
         try{
         await user.findByIdAndDelete(id)
@@ -107,7 +119,7 @@ router.post('/login', async(req, res) => {
     } catch(error){
         res.status (400).json(error)
     }
-    
+
     })
 
     /*
