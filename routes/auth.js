@@ -27,6 +27,8 @@ router.get('/all', async(req, res) => {
     }
 })
 
+
+// review
 router.post('/register', async(req, res) => {
     // constante para validar los campos
     const { error } = schemaRegister.validate(req.body)
