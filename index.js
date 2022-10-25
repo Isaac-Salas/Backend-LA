@@ -20,7 +20,7 @@ app.use(bodyparser.json())
 
 // Conexion a BD
 // const url = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.go8qi0c.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
-console.log(process.env.NAME,process.env.PASSWORD )
+console.log(process.env.NAME, process.env.PASSWORD)
 const url = `mongodb+srv://${process.env.NAME}:${process.env.PASSWORD}@cluster0.bsdjygq.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
 const options = {
     useNewUrlParser: true,
@@ -39,9 +39,7 @@ const authRoutes = require('./routes/auth')
 app.get('/', (req, res) =>{
     res.json({
         estado: true,
-        mensaje: 'Sisisisi'
-
-
+        mensaje: 'Works'
     })
 })
 app.use('/api/user', authRoutes)

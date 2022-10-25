@@ -15,14 +15,14 @@ const schemaLogin = Joi.object({
     password: Joi.string().min(6).max(1024).required()
 })
 
-router.get('/all', async(req, res)=> {
-    try{
+router.get('/all', async(req, res) => {
+    try {
         const users = await User.find()
-        res.json ({
+        res.json({
             error: null,
             data: users
         })
-    }catch (error) {
+    } catch (error) {
         res.status(400).json(error)
     }
 })
@@ -91,9 +91,6 @@ router.post('/login', async(req, res) => {
         })
     }
 
-
-
-
     // Creación del Token
     const token = jwt.sign({
         name: user.name,
@@ -105,29 +102,47 @@ router.post('/login', async(req, res) => {
         data: {token}
     })
 
-
-
-
-    router.post('/delete', async(req, res) => {
-        let {id} = req.body
-        try{
-        await user.findByIdAndDelete(id)
-        res.json ({
-            error:null,
-            message: 'Success'
-        })
-    } catch(error){
-        res.status (400).json(error)
-    }
-
-    })
-
     /*
     res.json({
         error: null,
         data: 'Bienvenido'
     })
     */
+})
+
+router.post('/update', (req, res) => {
+    let id = req.body._id
+    let update = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    User.findByIdAndUpdate(
+        {_id: id}, // id a actualizar
+        update, // objeto con los  valores a modificar
+        (err, result) => { // funcion para actualizar
+            if(err){
+                res.status(400).json(err)
+            }else{
+                res.json({
+                    error: null,
+                    message: result
+                })
+            }
+        })
+})
+
+router.post('/delete', async(req, res) => {
+    let id = req.body.id
+    try {
+        await User.findByIdAndDelete(id)
+        res.json({
+            error: null,
+            message: 'SUCCESS'
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+    
 })
 
 module.exports = router
